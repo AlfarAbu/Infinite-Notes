@@ -1,0 +1,79 @@
+
+
+<div class="section">
+  
+  <div class="container ">
+    <div class="form-row justify-content-md-center mb-4">
+      <div class="col-8">
+          <input class="form-control mr-1" style="width: 100%;" name="search" [(ngModel)]="searchText" placeholder="Search"
+            (keyup.enter)="searchNotes()">
+          </div>
+          <div class="col-1">
+            <button type="button" class="btn btn-danger" (click)="resetSearch()">Reset</button>
+          </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-lg btn-primary"  [ngClass]="{'active':viewType==viewTypesEnum.LIST?true:false}"(click)="doSorting(viewTypesEnum.LIST)">
+            <i class="bi bi-list"></i>
+          </button>
+          <button type="button" class="btn btn-primary" [ngClass]="{'active':viewType==viewTypesEnum.CARD?true:false}" (click)="doSorting(viewTypesEnum.CARD)">
+            <i class="bi bi-sticky"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-4 ">
+        <button type="button" class="btn btn-primary btn-lg float-right" (click)="openModal()">New Note</button>
+      </div>
+    </div>
+
+    <div class="alert alert-warning alert-dismissible fade show text-secondary rounded mt-4"
+      *ngIf='filteredNotes.length==0' role="alert">
+      <strong>No notes found with that title name</strong>
+    </div>
+
+
+    <div class="listing">
+      <div class="row" *ngIf="viewType== viewTypesEnum.LIST">
+        <div class="col-md-12">
+          <ul class="list-group" action="active" *ngFor="let note of filteredNotes;let i=index">
+            <li class="list-group-item mb-1 "
+              [style.background-color]="note.color" >
+              <div class="row">
+                <div class="col-md-10" >
+                  <h3 class=" text-white" style="cursor: pointer;" (click)="showModal(i)">{{note.title }}</h3>
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-md btn-light mr-2" (click)="editModal(i)"><i
+                      class="bi bi-pencil-fill"></i></button>
+                  <button class="btn btn-md btn-light mr-2" (click)="deleteListContent(i)"><i
+                      class="bi bi-trash-fill"></i></button>
+                  <button class="btn btn-md btn-light" (click)="pinNote(note.id)" >
+                        <i class="bi bi-pin-angle"></i></button>
+                </div>
+              </div>
+              <div class="action-btns">
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="viewType== viewTypesEnum.CARD">
+        <div class="card col-lg-4 rounded col-sm-12 " style="margin-bottom:15px; " *ngFor="let note of filteredNotes;let i=index">
+          <div class="card-body " [style.background-color]="note.color">
+            <h3 class="card-title text-white" style="cursor: pointer;" (click)="showModal(i)">{{ note.title }}</h3>
+            <p class="card-text text-white" style="height:50px;white-space: nowrap;overflow-x:hidden;text-overflow:ellipsis;">{{note.content}}</p>
+            <button class="btn btn-md btn-light mr-2" (click)="editModal(i)"><i class="bi bi-pencil-fill"></i></button>
+            <button class="btn btn-md btn-light mr-2" (click)="deleteListContent(i)"><i
+                class="bi bi-trash-fill"></i></button>
+            <!-- <button class="btn btn-md btn-light" (click)="pinningNote(note.id)" >
+                  <i class="bi bi-pin-angle"></i></button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

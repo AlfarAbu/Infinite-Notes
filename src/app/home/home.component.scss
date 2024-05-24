@@ -1,0 +1,60 @@
+div.a {
+    white-space: nowrap; 
+    width: 100px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #000000;
+  }
+.section {
+
+    .container {
+        .search-bar {
+            text-align: right;
+            width: 100%;
+            margin-bottom: 2%;
+
+            input {
+                width: 80%;
+                margin-right: 5%;
+
+            }
+
+        }
+
+        div.listing {
+            li {
+                padding: 2%;
+
+                .action-btns {
+                    float: right;
+
+                    i {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        div .card-group {
+            width: 100%;
+
+            i {
+                float: inline-end;
+                cursor: pointer;
+
+            }
+
+        }
+    }
+}
+div {
+
+    .card {
+        border: none;
+    }
+
+    .card-body {
+        border-radius: 8px;
+
+    }
+}
