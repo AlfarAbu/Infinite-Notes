@@ -16,18 +16,24 @@ export class NotePopsComponent {
   @Output() onClose: EventEmitter<Note> = new EventEmitter();
 
   constructor(public bsModalRef: BsModalRef) { }
+  selectableColors =["#FFA07A","#9FE2BF","#CD5C5C","#B2864C","#61A68F","#5E932E","#1E757F","#956ACB","#86872F","#6F506D"];
+  
   id: number = 0;
   title: string = '';
   content: string = '';
-  noteColor= "";
+  noteColor:string=this.selectableColors[0];
+  
+  isPinned:boolean=false;
 
-  selectableColors = ["#FFA07A", "#9FE2BF", "#CCCCFF"];
+  
 
   ngOnInit() {
     if (this.note) {
       this.title = this.note.title;
       this.content = this.note.content;
       this.noteColor = this.note.color;
+      
+      
       
     }
   }
@@ -40,16 +46,21 @@ export class NotePopsComponent {
         id: this.id,
         title: this.title,
         content: this.content,
-        color: this.noteColor
+         //color: this.noteColor,
+         color:this.noteColor,
+        isPinned:this.isPinned,
       }
 
       this.onClose.emit(data);//once youclose  the eventemitter this will keep the value to its self
       this.bsModalRef.hide();//after closing it this will hide the modal
     } else {
-      alert('No field should be empty');
+      alert('No field should be empty');//creating an alert method to prevent field being left empty
     }
 
 
+  }
+  selectColor(color:string){
+    this.noteColor=color;
   }
 
   // getRandomColor(): string {

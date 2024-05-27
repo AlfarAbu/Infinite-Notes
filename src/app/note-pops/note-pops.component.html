@@ -1,22 +1,23 @@
 <div>
-    <div class="modal-header">
+    <div class="modal-header ">
         <h4 class="modal-title">New Note</h4>
         <button type="button" class="close " aria-label="Close" (click)="bsModalRef.hide()">
             <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
     </div>
-    <div class="modal-body" >
+    <div class="modal-body"  >
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <label for="exampleFormControlInput1" class="form-label text-black">Title</label>
             <input type="email" class="form-control" id="exampleFormControlInput1"placeholder="Title" [(ngModel)]="title" aria-label="Username">
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+            <label for="exampleFormControlTextarea1" class="form-label text-black">Content</label>
             <textarea class="form-control" aria-label="With textarea" [(ngModel)]="content"></textarea>
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Choose your color</label>
-            <input type="color" class="form-control w-75 " id="exampleColorInput" value="#563d7c" [(ngModel)]="noteColor">
+            <label for="exampleFormControlTextarea1" class="form-label text-black w-100 ">Choose your color</label>
+            <button class="color-box mr-1" [ngClass]="{'active':noteColor==color?true:false}" *ngFor="let color of selectableColors" (click)="selectColor(color)" [style.background]="color"></button>
+            <!-- <input type="color" class="form-control w-75 " id="exampleColorInput" value="#563d7c" [(ngModel)]="noteColor"> -->
           </div>    
     </div>
 

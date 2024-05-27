@@ -7,7 +7,6 @@ import {HomeComponent } from './home/home.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { NotePopsComponent} from './note-pops/note-pops.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoteDetailsComponent } from './note-details/note-details.component';
 
@@ -24,7 +23,6 @@ import { NoteDetailsComponent } from './note-details/note-details.component';
     FormsModule,
     AppRoutingModule,
     ModalModule.forRoot(),
-    FontAwesomeModule,
     BrowserAnimationsModule
   ],
   providers: [],

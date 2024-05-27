@@ -1,14 +1,19 @@
 <div>
-    <div class="modal-header">
-        <h5 aria-label="Username">{{note?.title}}</h5>
-            <button type="button" class="close " aria-label="Close" (click)="bsModalRef.hide()">
+    <div class="modal-header" [style.background-color]='note?.color'>
+        <h5 class="aria-label text-light">{{note?.title}}</h5>
+            <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
                 <span aria-hidden="true" class="visually-hidden">&times;</span>
             </button>
     </div>
-    <div class="modal-body" [style.background-color]='note?.color' >
+    <div class="modal-body">
         <div class="mb-3">
             <p>{{note?.content}}</p>
-        </div>
-            
+        </div> 
+    </div>
+    
+    <div class="modal-footer ">
+        <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">
+            Close
+        </button>
     </div>
 <div>

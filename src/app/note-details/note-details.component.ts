@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Note } from '../shared/interfaces/note.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
+
 @Component({
   selector: 'app-note-details',
   templateUrl: './note-details.component.html',
@@ -16,8 +17,10 @@ export class NoteDetailsComponent {
   id: number = 0;
   title: string = '';
   content: string = '';
-  noteColor = "";
-    
+  noteColor= "";
+  isPinned:boolean=false;
+
+
   closeNote(){
     if (this.title.trim() && this.content.trim()) {
 
@@ -25,7 +28,8 @@ export class NoteDetailsComponent {
         id: this.id,
         title: this.title,
         content: this.content,
-        color:this.noteColor
+        color:this.noteColor,
+        isPinned:this.isPinned,
         
       }
 

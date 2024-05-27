@@ -5,7 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [
   {
-    path:'home',
+    path:'Notes',
     component:HomeComponent
   }
 ];
