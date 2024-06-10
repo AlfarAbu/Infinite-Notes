@@ -7,10 +7,10 @@ import { Note } from '../shared/interfaces/note.interface';
 
 @Component({
   selector: 'app-modal-body',
-  templateUrl: './note-pops.component.html',
-  styleUrls: ['./note-pops.component.scss']
+  templateUrl: './note-popup.component.html',
+  styleUrls: ['./note-popup.component.scss']
 })
-export class NotePopsComponent {
+export class NotePopupComponent {
   noteHeader="Update Note"
 
   @Input() note: Note | null = null;
@@ -28,7 +28,6 @@ export class NotePopsComponent {
   
 
   ngOnInit() {
-    console.log("Notepopscomponent:",this.note)
     if (this.note) {
       this.id=this.note.id;
       this.title = this.note.title;
@@ -38,7 +37,7 @@ export class NotePopsComponent {
   }
 
   saveAndClose() {
-    if (this.title.trim() && this.body.trim() && this.noteColor.trim()) {//remove the space for title and body
+    if (this.title.trim() && this.body.trim()) {//remove empty spaces before and after the property of title and body
       //defining the properties inside the function
 
       const data: Note = {

@@ -1,13 +1,13 @@
 <div>
-    <div class="modal-header" [style.background-color]='note?.color'>
-        <h5 class="aria-label text-light">{{note?.title}}</h5>
+    <div class="modal-header" [style.background-color]='getnote?.color'>
+        <h5 class="aria-label text-light">{{getnote?.title}}</h5>
             <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
                 <span aria-hidden="true" class="visually-hidden">&times;</span>
             </button>
     </div>
     <div class="modal-body">
         <div class="mb-3">
-            <p>{{note?.body}}</p>
+            <p>{{getnote?.body}}</p>
         </div> 
     </div>
     

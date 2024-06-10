@@ -2,7 +2,7 @@ import { AppService } from "../app.service"
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NotePopsComponent } from '../note-popup/note-popup.component';
+import { NotePopupComponent } from '../note-popup/note-popup.component';
 import { Note } from '../shared/interfaces/note.interface';
 import { NoteDetailsComponent } from '../note-details/note-details.component';
 
@@ -32,7 +32,7 @@ export class HomeComponent {
     })
   }
   openModal() {
-    const modalRef: BsModalRef<NotePopsComponent> = this.modalService.show(NotePopsComponent);
+    const modalRef: BsModalRef<NotePopupComponent> = this.modalService.show(NotePopupComponent);
     console.log(modalRef)
     modalRef.content?.onClose.subscribe((result: Note) => {
       if (result) {
@@ -50,10 +50,19 @@ export class HomeComponent {
 
   showModal(index: number) {
     const note = this.filteredNotes[index];
-    this.AppService.getNotesById(index).subscribe(()=>{
-      this.modalService.show(NoteDetailsComponent, { initialState: { note } });
+    this.AppService.getNotesById(index).subscribe((getnote:Note)=>{
+      this.modalService.show(NoteDetailsComponent, { initialState: { getnote:note } });
     })
   }
+
+// getNoteId(index:number){
+//     const note = this.filteredNotes[index];
+//     this.AppService.getNotesById(note.id).subscribe((getnote:Note)=>{
+//       this.modalService.show(NoteDetailsComponent,{initialState:{getnote:note}})
+//     })
+//     console.log(note);
+
+//   }  
 
 
   editModal(index: number) {
@@ -63,7 +72,7 @@ export class HomeComponent {
       isEditing: true,
     }
     if (this.filteredNotes[index]) {
-      const modalRef: BsModalRef<NotePopsComponent> = this.modalService.show(NotePopsComponent, { initialState });
+      const modalRef: BsModalRef<NotePopupComponent> = this.modalService.show(NotePopupComponent, { initialState });
 
       modalRef.content?.onClose.subscribe((updateNote: Note) => {
         if (updateNote) {

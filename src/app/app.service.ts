@@ -15,8 +15,10 @@ export class AppService {
     return this.http.get<Note[]>(this.apiUrl)
   }
 
-  getNotesById(id:number):Observable<Note[]>{
-    return this.http.get<Note[]>(`${this.apiUrl}/${id}`)
+  // getNotesById(id:number):Observable<Note[]>{
+  getNotesById(index:number):Observable<Note>{
+
+    return this.http.get<Note>(`${this.apiUrl}/${index}`)
   }
 
   createNote(note:Note):Observable<Note>{

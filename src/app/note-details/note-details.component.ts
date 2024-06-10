@@ -10,7 +10,7 @@ import { AppService } from '../app.service';
   styleUrls: ['./note-details.component.scss']
 })
 export class NoteDetailsComponent {
-  @Input() note: Note | null=null;
+  @Input() getnote: Note | null=null;
   @Output() onClose: EventEmitter<Note> = new EventEmitter();
 
   constructor(public bsModalRef: BsModalRef,private AppService:AppService) {}
