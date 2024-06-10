@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotePopsComponent } from './note-pops.component';
+import { NotePopsComponent } from './note-popup.component';
 
 describe('NotePopsComponent', () => {
   let component: NotePopsComponent;

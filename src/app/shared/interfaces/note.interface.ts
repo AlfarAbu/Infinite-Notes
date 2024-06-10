@@ -1,9 +1,7 @@
 export interface Note { 
-    id: number;
+    id?: any;
     title: string;
-    content: string;
+    body: string;
     color:string;
     isPinned?: boolean;
-    createdOn?: Date;
-    modifiedOn?: Date;
 }

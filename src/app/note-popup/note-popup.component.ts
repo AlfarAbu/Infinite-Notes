@@ -6,11 +6,12 @@ import { Note } from '../shared/interfaces/note.interface';
 
 
 @Component({
-  selector: 'app-modal-content',
+  selector: 'app-modal-body',
   templateUrl: './note-pops.component.html',
   styleUrls: ['./note-pops.component.scss']
 })
 export class NotePopsComponent {
+  noteHeader="Update Note"
 
   @Input() note: Note | null = null;
   @Output() onClose: EventEmitter<Note> = new EventEmitter();
@@ -18,36 +19,33 @@ export class NotePopsComponent {
   constructor(public bsModalRef: BsModalRef) { }
   selectableColors =["#FFA07A","#9FE2BF","#CD5C5C","#B2864C","#61A68F","#5E932E","#1E757F","#956ACB","#86872F","#6F506D"];
   
-  id: number = 0;
+  id: number |undefined;
   title: string = '';
-  content: string = '';
+  body: string = '';
   noteColor:string=this.selectableColors[0];
-  
   isPinned:boolean=false;
 
   
 
   ngOnInit() {
+    console.log("Notepopscomponent:",this.note)
     if (this.note) {
+      this.id=this.note.id;
       this.title = this.note.title;
-      this.content = this.note.content;
+      this.body = this.note.body;
       this.noteColor = this.note.color;
-      
-      
-      
     }
   }
 
   saveAndClose() {
-    if (this.title.trim() && this.content.trim() && this.noteColor) {//remove the space for title and content
+    if (this.title.trim() && this.body.trim() && this.noteColor.trim()) {//remove the space for title and body
       //defining the properties inside the function
 
       const data: Note = {
-        id: this.id,
+        id: this.note ? this.id :undefined,
         title: this.title,
-        content: this.content,
-         //color: this.noteColor,
-         color:this.noteColor,
+        body: this.body,
+        color:this.noteColor,
         isPinned:this.isPinned,
       }
 
@@ -56,8 +54,6 @@ export class NotePopsComponent {
     } else {
       alert('No field should be empty');//creating an alert method to prevent field being left empty
     }
-
-
   }
   selectColor(color:string){
     this.noteColor=color;

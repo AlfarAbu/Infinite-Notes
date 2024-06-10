@@ -1,14 +1,11 @@
 <div class="section">
 
   <div class="container ">
-    <div class="form-row justify-content-md-center mb-4">
+    <div class="form-row justify-body-md-center mb-4">
       <div class="col-12">
-        <input class="form-control form-control-lg text-primary" style="width: 100%;" name="search" [(ngModel)]="searchText"
-          placeholder="Search" (input)="searchNotes(searchText)">
+        <input class="form-control form-control-lg b-color-primary" style="width: 100%;" name="search"
+          [(ngModel)]="searchText" placeholder="Search" (input)="searchNotes(searchText)">
       </div>
-      <!-- <div class="col-1">
-        <button type="button" class="btn btn-danger" (click)="resetSearch()">Reset</button>
-      </div> -->
     </div>
 
     <div class="row mb-2">
@@ -84,14 +81,15 @@
 
 
       <div *ngIf="viewType== viewTypesEnum.CARD">
-        <div class="row" >
+        <div class="row">
           <!--Pinned Cards  -->
           <ng-container *ngIf="pinnedNotes.length>0">
-            <div class="card rounded col-md-4" style="margin-bottom:15px; " *ngFor="let note of pinnedNotes;let i=index">
+            <div class="card rounded col-md-4" style="margin-bottom:15px; "
+              *ngFor="let note of pinnedNotes;let i=index">
               <div class="card-body " [style.background-color]="note.color">
                 <h3 class="card-title text-white" style="cursor: pointer;" (click)="showModal(i)">{{ note.title }}</h3>
                 <p class="card-text text-white"
-                  style="height:50px;white-space: nowrap;overflow-x:hidden;text-overflow:ellipsis;">{{note.content}}</p>
+                  style="height:50px;white-space: nowrap;overflow-x:hidden;text-overflow:ellipsis;">{{note.body}}</p>
                 <button class="btn btn-md btn-light mr-2" (click)="editModal(i)"><i
                     class="bi bi-pencil-fill"></i></button>
                 <button class="btn btn-md btn-light mr-2" (click)="deleteListContent(i)"><i
@@ -108,7 +106,7 @@
             <div class="card-body " [style.background-color]="note.color">
               <h3 class="card-title text-white" style="cursor: pointer;" (click)="showModal(i)">{{ note.title }}</h3>
               <p class="card-text text-white"
-                style="height:50px;white-space: nowrap;overflow-x:hidden;text-overflow:ellipsis;">{{note.content}}</p>
+                style="height:50px;white-space: nowrap;overflow-x:hidden;text-overflow:ellipsis;">{{note.body}}</p>
               <button class="btn btn-md btn-light mr-2" (click)="editModal(i)"><i
                   class="bi bi-pencil-fill"></i></button>
               <button class="btn btn-md btn-light mr-2" (click)="deleteListContent(i)"><i
@@ -118,12 +116,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="row">
-        </div> -->
-
-
-
       </div>
     </div>
   </div>
