@@ -1,11 +1,10 @@
 import { AppService } from "../app.service"
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NotePopupComponent } from '../note-popup/note-popup.component';
 import { Note } from '../shared/interfaces/note.interface';
 import { NoteDetailsComponent } from '../note-details/note-details.component';
-
 
 
 @Component({
@@ -14,7 +13,10 @@ import { NoteDetailsComponent } from '../note-details/note-details.component';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  viewType: string = ViewTypes.LIST;
+
+  @Input() disableSearch: boolean = false;
+  @Input() viewType: string = ViewTypes.LIST;
+  @Output() onItemDeleted: EventEmitter<any> = new EventEmitter();
   viewTypesEnum = ViewTypes;
 
   pinnedNotes: Note[] = [];
@@ -24,13 +26,21 @@ export class HomeComponent {
   searchText: string = '';
   isEditing: boolean = false;
 
+  title: string = "";
 
   constructor(private router: Router, private modalService: BsModalService, private AppService: AppService) {
+    //  this.title = this.AppService.title;
+
     this.AppService.getNotes().subscribe((allNotes) => {
       this.filteredNotes = allNotes;
       this.cloneNotes()
     })
   }
+
+  ngOnChanges(simpleChange: SimpleChanges){
+    console.log("Change detected", simpleChange)
+  }
+
   openModal() {
     const modalRef: BsModalRef<NotePopupComponent> = this.modalService.show(NotePopupComponent);
     console.log(modalRef)
@@ -39,7 +49,6 @@ export class HomeComponent {
         this.AppService.createNote(result).subscribe(creatingNote => {
           this.filteredNotes.push(creatingNote)
           this.cloneNotes()
-
         })
       } else {
         alert("note is not getting created")
@@ -48,29 +57,21 @@ export class HomeComponent {
   };
 
 
-  showModal(index: number) {
-    const note = this.filteredNotes[index];
-    this.AppService.getNotesById(index).subscribe((getnote:Note)=>{
-      this.modalService.show(NoteDetailsComponent, { initialState: { getnote:note } });
-    })
+  showModal(index: any) {
+  const initialState = {
+    note: this.filteredNotes[index],
   }
-
-// getNoteId(index:number){
-//     const note = this.filteredNotes[index];
-//     this.AppService.getNotesById(note.id).subscribe((getnote:Note)=>{
-//       this.modalService.show(NoteDetailsComponent,{initialState:{getnote:note}})
-//     })
-//     console.log(note);
-
-//   }  
-
-
+  const noteid=initialState.note.id;
+  this.AppService.getNotesById(noteid).subscribe((getnote:Note)=>{{
+    this.modalService.show(NoteDetailsComponent,{initialState:{getnote}});
+  }})
+}
   editModal(index: number) {
-
     const initialState = {
       note: this.filteredNotes[index],
       isEditing: true,
     }
+    console.log(initialState.note.id)
     if (this.filteredNotes[index]) {
       const modalRef: BsModalRef<NotePopupComponent> = this.modalService.show(NotePopupComponent, { initialState });
 
@@ -115,6 +116,7 @@ export class HomeComponent {
 
   deleteListContent(index: number) {
     const id = this.filteredNotes[index].id;
+    this.onItemDeleted.emit(id);
     if (confirm("Are you sure!")) {
       this.AppService.deleteNote(id).subscribe(() => {
         this.filteredNotes.splice(index, 1)
@@ -129,37 +131,35 @@ export class HomeComponent {
   }
 
 
-  pinNote(noteId: number): void {
-    const noteIndex = this.filteredNotes.findIndex(note => note.id === noteId);
-    if (noteIndex !== -1) {
-      const pinnedNote = this.filteredNotes.splice(noteIndex, 1)[0];
-      this.filteredNotes.unshift(pinnedNote);
-    }
-  }
   markAsPinned(index: number, unpin: boolean = false) {
     if (index > -1) {
       // Mark note as unpinned
-      console.log(index, unpin)
+      //console.log(index, unpin)
       if (unpin) {
         const item = this.pinnedNotes[index];
-        item['isPinned'] = false;
-
-
+        item.isPinned= false;
+        this.AppService.updateNote(item).subscribe(()=>{
+          item.isPinned=false;
+       })
         // add item to filteredNotes array 
         this.filteredNotes.push(item);
 
         // remove item from filtered notes
         this.pinnedNotes.splice(index, 1);
-
-
       }
       // Mark not as pinned 
       else {
         const item = this.filteredNotes[index];
-        item['isPinned'] = true;
+        //item['isPinned'] = true;
+         item.isPinned=true;
+         
+         this.AppService.updateNote(item).subscribe(()=>{
+          item.isPinned=true;
+        })
 
         // add item to pinned array 
         this.pinnedNotes.push(item);
+        
 
         // remove item from filtered notes
         this.filteredNotes.splice(index, 1);

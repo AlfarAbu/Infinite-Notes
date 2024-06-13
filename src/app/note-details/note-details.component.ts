@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { Note } from '../shared/interfaces/note.interface';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AppService } from '../app.service';
@@ -7,34 +7,33 @@ import { AppService } from '../app.service';
 @Component({
   selector: 'app-note-details',
   templateUrl: './note-details.component.html',
-  styleUrls: ['./note-details.component.scss']
+  styleUrls: ['./note-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NoteDetailsComponent {
-  @Input() getnote: Note | null=null;
-  @Output() onClose: EventEmitter<Note> = new EventEmitter();
-
-  constructor(public bsModalRef: BsModalRef,private AppService:AppService) {}
+  @Input() getnote:any | null = null;
+  
   id: number = 0;
   title: string = '';
   body: string = '';
-  noteColor= "";
-  isPinned:boolean=false;
+  noteColor = "";
+  isPinned: boolean = false;
 
+  constructor(public bsModalRef: BsModalRef, public AppService: AppService) { }
 
-  closeNote(){
-    
-    if (this.title.trim() && this.body.trim()) {
-      const data: Note = {
-        id: this.id,
-        title: this.title,
-        body: this.body,
-        color:this.noteColor,
-        isPinned:this.isPinned,
-      }
-      this.onClose.emit(data);//once youclose  the eventemitter this will keep the value to its self
-      this.bsModalRef.hide();//after closing it this will hide the modal
+  ngOnInit() {
+    console.log("Init component", this.getnote)
+   this.loadNote()
+
   }
 
-  }}
+  loadNote(){
+    this.getnote.id=this.id,
+    this.getnote.id=this.title,
+    this.getnote.id=this.body
+  }
+
+
+}
 
 

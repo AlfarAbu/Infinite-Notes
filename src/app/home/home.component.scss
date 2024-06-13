@@ -1,10 +1,25 @@
-div.a {
+
+
+div {
+    h3:hover{
+        font-size: 2px;
+    }
+
+    .card {
+        border: none;
+    }
+
+    .card-body {
+        border-radius: 8px;
+
+    }
+    div.a {
     white-space: nowrap; 
     width: 100px; 
     overflow: hidden;
     text-overflow: ellipsis;
     border: 1px solid #000000;
-  }
+    }}
 .section {
 
     .container {
@@ -49,6 +64,9 @@ div.a {
     }
 }
 div {
+    h3:hover{
+        font-size: 29px;
+    }
 
     .card {
         border: none;
@@ -59,4 +77,5 @@ div {
 
     }
 }
+
 

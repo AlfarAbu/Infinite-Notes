@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AppService } from './app.service';
 
 
 
@@ -10,4 +11,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class AppComponent {
   title = 'InfiniteNotes';
+
+  constructor(private _appService: AppService){
+    // this._appService.title = "sceojwofjwii"
+  }
+
+  itemDeleted(id: any){
+    console.log("item deleted", id)
+  }
 }

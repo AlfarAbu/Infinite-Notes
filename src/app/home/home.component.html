@@ -1,7 +1,7 @@
 <div class="section">
-
+  <h1>{{ title }}</h1>
   <div class="container ">
-    <div class="form-row justify-body-md-center mb-4">
+    <div class="form-row justify-body-md-center mb-4" *ngIf="!disableSearch">
       <div class="col-12">
         <input class="form-control form-control-lg b-color-primary" style="width: 100%;" name="search"
           [(ngModel)]="searchText" placeholder="Search" (input)="searchNotes(searchText)">
@@ -40,8 +40,7 @@
               <div class="row">
                 <div class="col-md-10">
                   <h3 class=" text-white" style="cursor: pointer;" (click)="showModal(i)">{{note.title}}</h3>
-                  <!-- <h3 class=" text-white" style="cursor: pointer;" (click)="getNoteId(i)">{{note.title }}</h3> --> 
-                </div>
+                     </div>
                 <div class="col-md-2">
                   <button class="btn btn-md btn-light mr-2" (click)="editModal(i)"><i
                       class="bi bi-pencil-fill"></i></button>
@@ -58,7 +57,7 @@
         </div>
 
         <div class="col-md-12">
-          <ul class="list-group" action="active" *ngFor="let note of filteredNotes;let i=index">
+          <ul class="list-group" action="active" *ngFor="let note of filteredNotes;let i=index;">
             <li class="list-group-item mb-1 " [style.background-color]="note.color">
               <div class="row">
                 <div class="col-md-10">
@@ -86,7 +85,7 @@
           <!--Pinned Cards  -->
           <ng-container *ngIf="pinnedNotes.length>0">
             <div class="card rounded col-md-4" style="margin-bottom:15px; "
-              *ngFor="let note of pinnedNotes;let i=index">
+              *ngFor="let note of pinnedNotes;let i=index;">
               <div class="card-body " [style.background-color]="note.color">
                  <h3 class=" text-white" style="cursor: pointer;" (click)="showModal(i)">{{note.title}}</h3>
                 <p class="card-text text-white"

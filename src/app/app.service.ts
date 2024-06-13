@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Note } from './shared/interfaces/note.interface';
 
@@ -7,29 +7,39 @@ import { Note } from './shared/interfaces/note.interface';
   providedIn: 'root'
 })
 export class AppService {
-  private apiUrl="http://localhost:3000/notes"
 
-  constructor(private http:HttpClient) {}
+  // public title: string = "";
 
-  getNotes():Observable<Note[]>{
-    return this.http.get<Note[]>(this.apiUrl)
+  private readonly SERVER = "http://localhost:3000";
+
+  constructor(private http: HttpClient) { }
+
+  getNotes(): Observable<Note[]> {
+    const url = `${this.SERVER}/notes`;
+    return this.http.get<Note[]>(url)
   }
 
-  // getNotesById(id:number):Observable<Note[]>{
-  getNotesById(index:number):Observable<Note>{
-
-    return this.http.get<Note>(`${this.apiUrl}/${index}`)
+  // getNotesById(note:Note): Observable<Note> {
+  //   const url = `${this.SERVER}/notes/${note.id}`;
+  //   return this.http.get<Note>(url)
+  // }
+  getNotesById(index:number): Observable<Note> {
+    const url = `${this.SERVER}/notes/${index}`;
+    return this.http.get<Note>(url)
   }
 
-  createNote(note:Note):Observable<Note>{
-    return this.http.post<Note>(this.apiUrl,note)
+  createNote(note: Note): Observable<Note> {
+    const url = `${this.SERVER}/notes`;
+    return this.http.post<Note>(url, note)
   }
 
-  updateNote(note:Note):Observable<Note>{
-    return this.http.patch<Note>(`${this.apiUrl}/${note.id}`,note)
+  updateNote(note: Note): Observable<Note> {
+    const url = `${this.SERVER}/notes/${note.id}`;
+    return this.http.patch<Note>(url, note)
   }
 
-  deleteNote(id:number):Observable<Note>{
-    return this.http.delete<Note>(`${this.apiUrl}/${id}`)
+  deleteNote(id: number): Observable<Note> {
+    const url = `${this.SERVER}/notes/${id}`;
+    return this.http.delete<Note>(url)
   }
 }
